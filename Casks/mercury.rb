@@ -1,6 +1,6 @@
 cask "mercury" do
-  version "0.2.0"
-  sha256 :no_check # Will be auto-updated after next release
+  version "0.2.1"
+  sha256 :no_check # TODO: Update with SHA256 from workflow logs after v0.2.1 release completes
 
   url "https://github.com/Harry-kp/mercury/releases/download/v#{version}/Mercury-v#{version}-universal-apple-darwin.tar.gz"
   name "Mercury"
