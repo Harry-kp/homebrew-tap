@@ -1,6 +1,6 @@
 cask "mercury" do
   version "0.2.1"
-  sha256 :no_check # TODO: Update with SHA256 from workflow logs after v0.2.1 release completes
+  sha256 "4f73b5ed3fe0ab2944e2ff17d62fbd032743e20f88c93fc7e42ad261c429322c"
 
   url "https://github.com/Harry-kp/mercury/releases/download/v#{version}/Mercury-v#{version}-universal-apple-darwin.tar.gz"
   name "Mercury"
