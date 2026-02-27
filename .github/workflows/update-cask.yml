@@ -15,45 +15,27 @@ jobs:
       - name: Fetch latest release
         id: release
         run: |
-          RELEASE=$(curl -s https://api.github.com/repos/Harry-kp/afk-releases/releases/latest)
+          RELEASE=$(curl -s https://api.github.com/repos/Harry-kp/afk/releases/latest)
           VERSION=$(echo "$RELEASE" | jq -r '.tag_name | sub("^v"; "")')
           DMG_URL=$(echo "$RELEASE" | jq -r '.assets[] | select(.name | endswith(".dmg")) | .browser_download_url')
           
           echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
           echo "DMG_URL=$DMG_URL" >> $GITHUB_OUTPUT
           
-          # Download and compute SHA256
           curl -L -o /tmp/app.dmg "$DMG_URL"
           SHA256=$(shasum -a 256 /tmp/app.dmg | awk '{print $1}')
           echo "SHA256=$SHA256" >> $GITHUB_OUTPUT
 
       - name: Update cask file
         run: |
-          cat > Casks/afk.rb << 'EOF'
-          cask "afk" do
-            version "${{ steps.release.outputs.VERSION }}"
-            sha256 "${{ steps.release.outputs.SHA256 }}"
-
-            url "https://github.com/Harry-kp/afk-releases/releases/download/v#{version}/Afk_#{version}_universal.dmg"
-            name "Afk"
-            desc "Break reminder app - step away from your keyboard"
-            homepage "https://afk-app.vercel.app"
-
-            livecheck do
-              url "https://github.com/Harry-kp/afk-releases/releases/latest"
-              strategy :github_latest
-            end
-
-            app "Afk.app"
-
-            zap trash: [
-              "~/Library/Application Support/com.afk.app",
-              "~/Library/Caches/com.afk.app",
-              "~/Library/Preferences/com.afk.app.plist",
-              "~/Library/Saved Application State/com.afk.app.savedState",
-            ]
-          end
-          EOF
+          VERSION="${{ steps.release.outputs.VERSION }}"
+          SHA256="${{ steps.release.outputs.SHA256 }}"
+          
+          sed -i "s/version \".*\"/version \"$VERSION\"/" Casks/afk.rb
+          sed -i "s/sha256 .*/sha256 \"$SHA256\"/" Casks/afk.rb
+          
+          echo "Updated Casks/afk.rb:"
+          cat Casks/afk.rb
 
       - name: Commit and push
         run: |
@@ -62,4 +44,3 @@ jobs:
           git add Casks/afk.rb
           git commit -m "chore: bump afk to v${{ steps.release.outputs.VERSION }}" || exit 0
           git push
-

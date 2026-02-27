@@ -13,11 +13,10 @@ jobs:
         with:
           token: ${{ secrets.PAT_TOKEN }}
 
-      - name: Fetch latest release from afk-releases
+      - name: Fetch latest release from afk
         id: get_release
         run: |
-          # Get latest release info from public releases repo
-          RELEASE_DATA=$(curl -s https://api.github.com/repos/Harry-kp/afk-releases/releases/latest)
+          RELEASE_DATA=$(curl -s https://api.github.com/repos/Harry-kp/afk/releases/latest)
           
           VERSION=$(echo "$RELEASE_DATA" | jq -r '.tag_name | sub("^v"; "")')
           DMG_URL=$(echo "$RELEASE_DATA" | jq -r '.assets[] | select(.name | endswith(".dmg")) | .browser_download_url')
@@ -41,13 +40,8 @@ jobs:
           VERSION="${{ steps.get_release.outputs.VERSION }}"
           SHA256="${{ steps.sha256.outputs.SHA256 }}"
           
-          # Update version
           sed -i "s/version \".*\"/version \"$VERSION\"/" Casks/afk.rb
-          
-          # Update sha256 (handles both quoted and :no_check formats)
           sed -i "s/sha256 .*/sha256 \"$SHA256\"/" Casks/afk.rb
-          
-          # URL uses #{version} interpolation, no need to update
           
           echo "Updated Casks/afk.rb:"
           cat Casks/afk.rb
@@ -61,7 +55,6 @@ jobs:
           
           git add Casks/afk.rb
           
-          # Check if there are changes
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
