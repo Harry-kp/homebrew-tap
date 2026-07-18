@@ -1,25 +1,25 @@
 class Vortix < Formula
   desc "Terminal UI for WireGuard and OpenVPN with real-time telemetry and leak guarding"
   homepage "https://docs.rs/vortix"
-  version "0.4.2"
+  version "0.4.3"
   if OS.mac?
     if Hardware::CPU.arm?
-      url "https://github.com/Harry-kp/vortix/releases/download/v0.4.2/vortix-aarch64-apple-darwin.tar.xz"
-      sha256 "b69b5a30c9702764be3ef0e83d64a257896541eeae9c353de7e441d2fc5ba762"
+      url "https://github.com/Harry-kp/vortix/releases/download/v0.4.3/vortix-aarch64-apple-darwin.tar.xz"
+      sha256 "93c236c019c590ae2267909c2719b8180c03fc94195eeee1272360402ad4bb22"
     end
     if Hardware::CPU.intel?
-      url "https://github.com/Harry-kp/vortix/releases/download/v0.4.2/vortix-x86_64-apple-darwin.tar.xz"
-      sha256 "88b6727801c2fad1cfa1ad29bde5357d0f975cc7accd85a2e92eb529217cccd8"
+      url "https://github.com/Harry-kp/vortix/releases/download/v0.4.3/vortix-x86_64-apple-darwin.tar.xz"
+      sha256 "0e946bcb0ca755ed68675f9ec17192ba5c6332b2b2d24f7353ec67126a3e7321"
     end
   end
   if OS.linux?
     if Hardware::CPU.arm?
-      url "https://github.com/Harry-kp/vortix/releases/download/v0.4.2/vortix-aarch64-unknown-linux-gnu.tar.xz"
-      sha256 "55ecf19e828fa5fd5c17a7e0bd3d612d434d4467d04bd95c943ab72ed479139d"
+      url "https://github.com/Harry-kp/vortix/releases/download/v0.4.3/vortix-aarch64-unknown-linux-gnu.tar.xz"
+      sha256 "34db965254722eb8249e9ac6f911d4007f09a1818c18b055768d8e29cf0e1d13"
     end
     if Hardware::CPU.intel?
-      url "https://github.com/Harry-kp/vortix/releases/download/v0.4.2/vortix-x86_64-unknown-linux-gnu.tar.xz"
-      sha256 "7c9644edfc20bfc902acce23ec2bf58d7dbf9c23a36416b5b29e65bc7ecff283"
+      url "https://github.com/Harry-kp/vortix/releases/download/v0.4.3/vortix-x86_64-unknown-linux-gnu.tar.xz"
+      sha256 "7b9a02ec09b55ae29db53f513314b8df5c32c2731053125598acbea3b3fac519"
     end
   end
   license "MIT"
