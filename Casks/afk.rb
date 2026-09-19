@@ -1,6 +1,6 @@
 cask "afk" do
-  version "1.1.0"
-  sha256 "980007839985a240cb1a46b892596db1c4ae88caca42c564f09b953538ef39de"
+  version "1.1.1"
+  sha256 "0e48716a6d3a0e54eb46a6eea3a217196b401c2fb898bb4448a7d0e2e437571f"
 
   url "https://github.com/Harry-kp/afk/releases/download/v#{version}/Afk_#{version}_universal.dmg"
   name "Afk"
