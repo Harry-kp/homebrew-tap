@@ -1,25 +1,25 @@
 class Vortix < Formula
   desc "Terminal UI for WireGuard and OpenVPN with real-time telemetry and leak guarding"
   homepage "https://docs.rs/vortix"
-  version "0.4.3"
+  version "0.5.0"
   if OS.mac?
     if Hardware::CPU.arm?
-      url "https://github.com/Harry-kp/vortix/releases/download/v0.4.3/vortix-aarch64-apple-darwin.tar.xz"
-      sha256 "93c236c019c590ae2267909c2719b8180c03fc94195eeee1272360402ad4bb22"
+      url "https://github.com/Harry-kp/vortix/releases/download/v0.5.0/vortix-aarch64-apple-darwin.tar.xz"
+      sha256 "aec1ac4edd1095f2cfe5da221a7b7f2c78d0770df9e4097f7c884ae503354575"
     end
     if Hardware::CPU.intel?
-      url "https://github.com/Harry-kp/vortix/releases/download/v0.4.3/vortix-x86_64-apple-darwin.tar.xz"
-      sha256 "0e946bcb0ca755ed68675f9ec17192ba5c6332b2b2d24f7353ec67126a3e7321"
+      url "https://github.com/Harry-kp/vortix/releases/download/v0.5.0/vortix-x86_64-apple-darwin.tar.xz"
+      sha256 "6a4caddffba309cccb58d657817905d84575b9526ba4edc4c72763bc8d444cc8"
     end
   end
   if OS.linux?
     if Hardware::CPU.arm?
-      url "https://github.com/Harry-kp/vortix/releases/download/v0.4.3/vortix-aarch64-unknown-linux-gnu.tar.xz"
-      sha256 "34db965254722eb8249e9ac6f911d4007f09a1818c18b055768d8e29cf0e1d13"
+      url "https://github.com/Harry-kp/vortix/releases/download/v0.5.0/vortix-aarch64-unknown-linux-gnu.tar.xz"
+      sha256 "6985f0a155a843f270f1babf9f1bee0d17c07d6d6413486425bf07110b455aee"
     end
     if Hardware::CPU.intel?
-      url "https://github.com/Harry-kp/vortix/releases/download/v0.4.3/vortix-x86_64-unknown-linux-gnu.tar.xz"
-      sha256 "7b9a02ec09b55ae29db53f513314b8df5c32c2731053125598acbea3b3fac519"
+      url "https://github.com/Harry-kp/vortix/releases/download/v0.5.0/vortix-x86_64-unknown-linux-gnu.tar.xz"
+      sha256 "e74caa0e549a0396a2f32397f30241220c517ab52fde797a7000a1b3191a470e"
     end
   end
   license "MIT"
@@ -51,10 +51,18 @@ class Vortix < Formula
   end
 
   def install
-    bin.install "vortix" if OS.mac? && Hardware::CPU.arm?
-    bin.install "vortix" if OS.mac? && Hardware::CPU.intel?
-    bin.install "vortix" if OS.linux? && Hardware::CPU.arm?
-    bin.install "vortix" if OS.linux? && Hardware::CPU.intel?
+    if OS.mac? && Hardware::CPU.arm?
+      bin.install "vortix"
+    end
+    if OS.mac? && Hardware::CPU.intel?
+      bin.install "vortix"
+    end
+    if OS.linux? && Hardware::CPU.arm?
+      bin.install "vortix"
+    end
+    if OS.linux? && Hardware::CPU.intel?
+      bin.install "vortix"
+    end
 
     install_binary_aliases!
 
