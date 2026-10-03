@@ -1,22 +1,29 @@
 class Kitz < Formula
-  desc "Terminal UI for AWS MSK Kafka with IAM auth, multi-environment switching, and live topic and consumer-group inspection"
+  desc "Terminal UI for Kafka and AWS MSK: topics, messages and consumer lag at a glance, with IAM auth and multi-environment switching"
   homepage "https://github.com/Harry-kp/kitz"
-  version "0.1.0"
+  version "0.2.0"
   if OS.mac?
     if Hardware::CPU.arm?
-      url "https://github.com/Harry-kp/kitz/releases/download/v0.1.0/kitz-aarch64-apple-darwin.tar.xz"
-      sha256 "643e33d40ed665d61ba74ad5920869954cbba92f524571724f550938b6c1b671"
+      url "https://github.com/Harry-kp/kitz/releases/download/v0.2.0/kitz-aarch64-apple-darwin.tar.xz"
+      sha256 "10d72cebc10e117c410f82054e80104fc773418c2c03f2679d8f1e01c1510fe3"
     end
     if Hardware::CPU.intel?
-      url "https://github.com/Harry-kp/kitz/releases/download/v0.1.0/kitz-x86_64-apple-darwin.tar.xz"
-      sha256 "50fe5ab98589cc4a501e8cf46f23ba8f4ee488166a2484bfedfc21ca2887c41e"
+      url "https://github.com/Harry-kp/kitz/releases/download/v0.2.0/kitz-x86_64-apple-darwin.tar.xz"
+      sha256 "84c6f391b2b563f3652edfc33d25c120769dc748f43a4e1716f8951c240ac26a"
     end
+  end
+  if OS.linux? && Hardware::CPU.intel?
+    url "https://github.com/Harry-kp/kitz/releases/download/v0.2.0/kitz-x86_64-unknown-linux-musl.tar.xz"
+    sha256 "a5a1285e53d18602363414702b27657f25acf3adc9d7be63e0e9cc973b22bea0"
   end
   license "MIT"
 
   BINARY_ALIASES = {
-    "aarch64-apple-darwin": {},
-    "x86_64-apple-darwin":  {},
+    "aarch64-apple-darwin":              {},
+    "x86_64-apple-darwin":               {},
+    "x86_64-unknown-linux-gnu":          {},
+    "x86_64-unknown-linux-musl-dynamic": {},
+    "x86_64-unknown-linux-musl-static":  {},
   }.freeze
 
   def target_triple
@@ -35,8 +42,15 @@ class Kitz < Formula
   end
 
   def install
-    bin.install "kitz" if OS.mac? && Hardware::CPU.arm?
-    bin.install "kitz" if OS.mac? && Hardware::CPU.intel?
+    if OS.mac? && Hardware::CPU.arm?
+      bin.install "kitz"
+    end
+    if OS.mac? && Hardware::CPU.intel?
+      bin.install "kitz"
+    end
+    if OS.linux? && Hardware::CPU.intel?
+      bin.install "kitz"
+    end
 
     install_binary_aliases!
 
